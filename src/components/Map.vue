@@ -11,6 +11,7 @@
       :marker-id="point.id"
       :coords="point.coords"
       :hint-content="point.comment"
+      :balloon="getBaloon(point)"
       marker-type="Placemark"
     />
   </yandex-map>
@@ -49,13 +50,23 @@ export default {
         `;
         const point = {
           id,
+          address,
           comment,
           coords: [ lat, lon ],
         };
         return [...arr, point];
       }, []);
-    }
+    },
+    
   },
+  methods: {
+    getBaloon({id, address}) {
+      return {
+        header: `Task name: <strong>${id}</strong>`,
+        body: `Address: <strong>${address}</strong>`
+      }
+    }
+  }
 }
 </script>
 
